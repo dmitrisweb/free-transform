@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>jsMorph - demo page</title>
+<link href="css/jsMorph.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<div id="header">
+  <ul id="navigation">
+    <li><a href="./">jsMorph</a></li>
+    <li><a href="download.html">Download</a></li>
+    <li><a href="documentation.html">Documentation</a></li>
+    <li><a href="demos.html" class="active">Demos</a></li>
+    <li><a href="tutorials.html">Tutorials</a></li>
+    <li><a href="plugins.html">Plugins</a></li>
+  </ul>
+	<h1><a href="./"><img src="images/logo_new_t.png" id="logoImage" alt="jsMorph" width="227" height="45" /></a><br />
+&nbsp;&nbsp;&nbsp;&nbsp;  javaScript motion framework - demo pages</h1>
+	<ul>
+  	<li><a href="demos.html">Transition demo</a></li>
+  	<li><a href="demos_bounce.html">Bouncing ball demo</a></li>
+  	<li><a href="demos_menu.html" class="active">Menu demo</a></li>
+  	<li><a href="demos_accordeon.html">Accordeon demo</a></li>
+  	<li><a href="demos_charts.html">Chart bars demo</a></li>
+  	<li><a href="demos_loadspin.html">Loading spinner demo</a></li>
+  	<li><a href="demos_iPhone.html">iPhone UI demo</a></li>
+  	<li><a href="demos_imageslide.html">Image / content slider</a></li>
+  	<li><a href="tutorials.html">Tutorial demos</a></li>
+  </ul>
+  <p>  The following demos are not best practice examples, they should just show what you can do with <strong>jsMorph</strong>.<br>
+  Most of the demos can be found in the <a href="plugins.html">Plugins section</a> as real usable plugins.</p>
+</div>
+<h2>Menu demo</h2>
+<p>This simple demo shows how easy it is to set up some very effective menu animation.</p>
+<div style="height: 100px">
+  <ul id="menu">
+    <li><a href="#">First menu</a></li>
+    <li><a href="#">Another menu</a></li>
+    <li><a href="#">Different menu</a></li>
+    <li><a href="#">Menu 04</a></li>
+    <li><a href="#">Menu 05</a></li>
+    <li><a href="#">A slightly longer menu</a></li>
+  </ul>
+</div>
+<pre>
+var menu = document.getElementById('menu'),
+    links = menu.getElementsByTagName('a'),
+    myMorph = new <strong>jsMorph</strong>(links,
+      {height: '35px', 'border-bottom-width' : '18px', 'border-top-width' : '10px',
+        'margin-bottom' : '-18px', 'margin-top' : '-10px', 'padding-top' : '24px'},
+      {<strong>duration</strong> : 300},
+      function(n) {return --n*n*n*n*n+1}
+    );
+
+menu.onmouseout = menu.onmouseover = function(e) { <em>// event delegation</em>
+  var e = e || window.event,
+      obj = e.target || e.srcElement;
+      
+  if (obj.tagName.toLowerCase() == 'a') {
+    obj.<strong>backwards</strong> = (e.type == 'mouseout') ? true : false;
+    myMorph.<strong>start</strong>(obj);
+  }
+}
+</pre>
+<div id="footer"><em>powered by: </em> <strong>weekendProductions</strong> - Peter Dematté</div>
+<script src="js/jsMorph_min.js" type="text/javascript"></script>
+</body>
+</html>

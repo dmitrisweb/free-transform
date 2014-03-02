@@ -14,6 +14,7 @@
  *
  *  initialization          : ft = new FreeTransform(HTMLElement)
  *  apply transformation    : ft.to();
+ *  reset transformation    : ft.reset();
  *
  */
 

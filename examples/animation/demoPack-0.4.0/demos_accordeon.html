@@ -1,0 +1,118 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>jsMorph - demo page</title>
+<link href="css/jsMorph.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<div id="header">
+  <ul id="navigation">
+    <li><a href="./">jsMorph</a></li>
+    <li><a href="download.html">Download</a></li>
+    <li><a href="documentation.html">Documentation</a></li>
+    <li><a href="demos.html" class="active">Demos</a></li>
+    <li><a href="tutorials.html">Tutorials</a></li>
+    <li><a href="plugins.html">Plugins</a></li>
+  </ul>
+	<h1><a href="./"><img src="images/logo_new_t.png" id="logoImage" alt="jsMorph" width="227" height="45" /></a><br />
+&nbsp;&nbsp;&nbsp;&nbsp;  javaScript motion framework - demo pages</h1>
+	<ul>
+  	<li><a href="demos.html">Transition demo</a></li>
+  	<li><a href="demos_bounce.html">Bouncing ball demo</a></li>
+  	<li><a href="demos_menu.html">Menu demo</a></li>
+  	<li><a href="demos_accordeon.html" class="active">Accordeon demo</a></li>
+  	<li><a href="demos_charts.html">Chart bars demo</a></li>
+  	<li><a href="demos_loadspin.html">Loading spinner demo</a></li>
+  	<li><a href="demos_iPhone.html">iPhone UI demo</a></li>
+  	<li><a href="demos_imageslide.html">Image / content slider</a></li>
+  	<li><a href="tutorials.html">Tutorial demos</a></li>
+  </ul>
+  <p>  The following demos are not best practice examples, they should just show what you can do with <strong>jsMorph</strong>.<br>
+  Most of the demos can be found in the <a href="plugins.html">Plugins section</a> as real usable plugins.</p>
+</div>
+
+<ul id="demoBox">
+  <li><h2>1st Demo - Accordeon box</h2><div>
+    <p>This accordeon box demonstrates what jsMorph can do.<br>
+      It's an unordered list with H2s and DIVs in it, being controled by a tiny javaScript. See <a href="#">demo of accordeon</a> in the <a href="#">Tutorial section</a>.</p>
+    <p>The following links show you what you'll find on this site</p>
+    </div>
+  </li>
+  <li><h2>jsMorph</h2>
+  	<div>
+    	<p>The <a href="#">fron page of jsMorph</a> with all the features listed.</p>
+  	</div>
+  </li>
+  <li><h2 class="active">Demos</h2>
+  	<div>
+    	<p><a href="#">Find Demos</a> that explain how to use jsMorph and how it works.<br>...just like this accordeon box!</p>
+  	</div>
+  </li>
+  <li><h2>Download</h2>
+    <div>
+      <p>The <a href="#">download page</a> that explains how to use jsMorph with the additional easing functions.<br>Find also some functions used in the demo / tutorial section.</p>
+    </div>
+  </li>
+  <li><h2>Documentation</h2>
+  	<div>
+      <p>See all the methods and other things you need to know to get jsMorph work for you on the <a href="#">documentation page</a>.</p>
+    </div>
+  </li>
+  <li><h2>Tutorials</h2>
+  	<div>
+      <p>Find some additional useful demos <a href="#">here</a> like:</p>
+      <p>- <a href="#">Slide show transitions</a><br>
+        - <a href="#">Bouncing ball</a><br>
+        - <a href="#">Menu demo</a><br>
+        - <a href="#">Chart bars</a><br>
+        - <a href="#">iPhone demo</a></p>
+    </div>
+  </li>
+</ul>
+<h2>Accordeon box demo</h2>
+<div id="startBox">
+  <p> You'll also recognice that here the backwards flag is set in the object's onMorphEnd callack function other than in the menu demo.
+  Eather way is possible although here we would need to change it for 2 elements which is done in the callback function automatically. <br />
+  And again: you can add as many elements as you want without haveing to change the code.</p>
+<pre>
+var acc = function (acc, duration, head, body) {
+    var heads = acc.getElementsByTagName(head ||'h2'),
+    content = acc.getElementsByTagName(body ||'span'),
+    myMorph = new <strong>jsMorph</strong>();
+
+    for (var n=heads.length; n--;) {
+      content[n].style.cssText = 'height:auto; display: block';
+      myMorph.<strong>concat</strong>(content[n],
+        {'height': '0px'},
+        {<strong>duration</strong> : duration, <strong>delay</strong> : 0},
+        function(n) {return --n*n*n*n*n+1},
+        null,
+        null,
+        function (obj) {obj.<strong>backwards</strong> = obj.<strong>backwards</strong> ? false : true}
+      );
+      heads[n].me = n;
+      if (n) {
+        content[n].style.height = 0;
+        content[n].<strong>backwards</strong> = true;
+      } else acc.current = n;
+    }
+    
+    acc.onclick = function(e) { <em>// event delegation</em>
+      var e = e || window.event, obj = e.target || e.srcElement;
+      if (obj.tagName.toLowerCase() == 'h2' && obj.me != acc.current && !myMorph.<strong>timer</strong>) {
+        myMorph.<strong>start</strong>(content[obj.me], content[acc.current]);
+        acc.current = obj.me;
+      }
+    };
+  };
+
+acc(document.getElementById('acc'), 200);
+</pre>
+</div>
+
+<div id="footer"><em>powered by: </em> <strong>weekendProductions</strong> - Peter Dematté</div>
+<script src="js/jsMorph_min.js" type="text/javascript"></script>
+</body>
+</html>

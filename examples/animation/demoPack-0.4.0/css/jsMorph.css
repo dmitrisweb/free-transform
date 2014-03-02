@@ -1,0 +1,529 @@
+html {
+	text-align:center;
+	background:#222 url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAEECAMAAADeca68AAAAZlBMVEUBAQEAAAAcHBwDAwMLCwsJCQkODg4fHx8FBQUaGhodHR0ZGRkUFBQWFhYSEhIXFxcREREMDAwPDw8ICAggICAGBgYVFRUhISETExMNDQ0HBwcEBAQeHh4bGxsQEBAKCgoCAgIYGBhUHtDoAAAAR0lEQVQoz13BxQGAMAAEQYJ7SHCH/pvky+2MMRDgIyPcZY4jbrLHBG8Zo8NVpujxkh22uMgaJ9mgxVdWWOApQyzxkBkOOP9/0b4RQ/3vUiQAAAAASUVORK5CYII=') repeat-x;
+}
+body {
+	font:normal .8em/1.4em "Trebuchet MS", Verdana, Helvetica, Arial, sans-serif;
+	background:#333 url(../images/raster.png) repeat-x;
+	color:#ddd;
+	width:700px;
+	margin:auto;
+	text-align:left;
+	padding:0 3em;
+	overflow:auto;
+	overflow-x: hidden;
+}
+h1 {
+	font-size:1.5em;
+	margin: 0 0 1em -.5em;
+}
+h2 {
+	margin-top: 2.5em;
+	margin-left:-.5em;
+	color:#91B39F
+}
+h3 {
+	font-size: 120%;
+	background-color: #444;
+	padding: 0.7em;
+	margin-top: 2em;
+}
+a {
+	font-weight: bold;
+	color:#91B39F;
+	color: #608FCB;
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: underline;
+}
+em {color:#999}
+strong {color:#91B39F}
+pre {
+	font-size:12px;
+	line-height:14px;
+	color:#7FD6FF;
+	color:#48B6FF;
+	color:#79B4FF;
+	padding-left:1em;
+	border-left:1px solid #444
+}
+pre strong {
+	font-weight:normal;
+	color:#BAE6CC
+}
+pre em {
+	color:#999
+}
+.fat {
+	font-weight: bold;
+	color: #7FD6FF;
+	color: #608FCB;
+}
+/* --------------------------- */
+#header {
+	position:relative;
+	margin:0 -2em -2em;
+	padding:4em 2em 1em;
+	border-bottom:1px solid #666;
+	zoom:1;
+}
+#navigation {
+	position:absolute;
+	right:-1em;
+	top:0;
+	background-color:#3D5B81;
+	margin:0;
+	padding:0 0 0 .4em;
+	list-style:none;
+	border-bottom-left-radius:5px;
+	-webkit-border-bottom-left-radius:5px;
+	-moz-border-radius-bottomleft:5px
+}
+#navigation li {
+	display:block;
+	float:left;
+}
+#navigation a {
+	display:block;
+	float:left;
+	color:#fff;
+	padding:.6em .7em .4em;
+	text-decoration:none;
+	border-bottom:3px solid #3D5B81;
+	text-shadow:1px 1px 1px rgba(0, 0, 0, .7);
+	font-weight:normal;
+}
+#navigation a:hover {
+	border-bottom-color:#2C425D;
+	color:#cfc
+}
+#navigation a.active {
+	border-bottom-color:#5681B6
+}
+#logoImage {
+	border:0;
+}
+#footer {
+	clear:both;
+	text-align:right;
+	padding:1.5em 2em;
+	background-color:#2a2a2a;
+	margin:2em -3em 0;
+	color:#888;
+	border-top:1px solid #444;
+	background:#333 url(../images/raster.png) left -80px repeat-x;
+	zoom:1;
+}
+/* ------------ start page --------------- */
+#button {
+	position: absolute;
+	right: 0px;
+	top: 82px;
+	z-index: 2;
+}
+/* ------------ accordeon --------------- */
+#demoBox {
+	position: relative;
+	display: block;
+	float: right;
+	list-style:none;
+	width: 230px;
+	background-color: #eee;
+	border: 5px solid #2C415A;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	padding: 0;
+	margin: 4em 0 0;
+}
+#demoBox h2 {
+	color:#fff;
+	padding:.4em;
+	margin: 0;
+	background-color: #3D5B81;
+	border-bottom: 1px solid #324B6A;
+	font-size: 100%;
+	cursor: pointer;
+	zoom:1;
+}
+#demoBox p {
+	padding: 0 .8em;
+	margin: .6em 0;
+}
+#demoBox a {
+	color:#324B6A;
+}
+#demoBox div {
+	background-color: #eee;
+	overflow: hidden;
+	color:#333;
+}
+#startBox {
+ display: block;
+ width: 430px;
+ padding-bottom: 2em;
+ float: left;
+}
+.active {color:#ccc}
+
+/* --- start page --- */
+#demoBox.start-page-accordeon {
+	border: 5px solid #555;
+	border-left: none;
+	border-right: none;
+	border: none;
+	border-radius: 0px;
+	-moz-border-radius: 0px;
+	margin-right: -1em;
+	background-color: transparent;
+}
+#demoBox.start-page-accordeon h2{
+	padding: .6em;
+	color:#eee;
+	background-color: #444;
+	border-bottom: 1px solid #333;
+}
+#demoBox.start-page-accordeon div {
+	background-color: #333;
+	color:#ddd;
+}
+#demoBox.start-page-accordeon a {
+	color:#608FCB;
+}
+#demoBox.start-page-accordeon p {
+	padding: 0 .2em .2em;
+}
+
+
+/* -----------  documentation page ------------------- */
+.padding-left {
+	display: block;
+	padding-left: 2em;
+}
+
+
+/* -----------  tutorial page ------------------- */
+.demo {
+	position:absolute;
+	width:30px;
+	height:30px;
+	border:1px solid #888;
+	background-color:#666;
+	line-height:30px;
+	text-align:center
+}
+.demo-wrapper {
+	position:relative;
+	height:30px
+}
+
+#demo_5 {
+	position:absolute;
+	left:0px
+}
+#demo_6 {
+	position:absolute;
+	left:50px
+}
+#demo_7 {
+	position:absolute;
+	left:100px
+}
+#demo_8 {
+	position:absolute;
+	left:150px
+}
+#unitDemo {
+	width: 6em;
+	height: 2ex;
+	border: .4em solid #888;
+	padding: 2%;
+	margin-left: 1cm;
+	background-color:#666;
+}
+/* ------- demo transition ------------------ */
+#slide {
+	position: relative;
+	height: 300px;
+	width: 400px;
+	left: 0;
+	border: 12px solid #222;
+	overflow: hidden;
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+	-o-border-radius: 4px;
+	z-index: 2;
+}
+/* ------- demo bounce ------------------ */
+#bounce {
+	position: relative;
+	width: 51px;
+	height: 51px;
+}
+
+/* ------- demo menu ------------------ */
+#menu {
+	position: relative;
+	display:inline-block;
+	width: 100%;
+	background-color: #aaa;
+	margin: 2em 0 0 0em;
+	padding: 0;
+	list-style: none;
+}
+#menu li {
+	display: block;
+	float: left;
+}
+#menu a {
+	text-decoration: none;
+	color: #333;
+	background-color: #ccc;
+	display: inline-block;
+	padding: 34px 6px 3px 6px;
+	margin: 0 0 0 12px;
+	border: 0px solid #222;
+}
+#menu a:hover {
+	color: #ccc;
+	background-color: #555;
+}
+
+/* ------- demo accordeon -------------- */
+/* See -- start page -- accordeon -- */
+
+/* ------- demo chart ------------------ */
+#chart {
+	position: relative;
+	height: 200px;
+	width: 100%;
+	border-top: 1px solid #777;
+	border-bottom: 1px solid #777;
+	overflow: hidden;
+}
+#chart div {
+	position: relative;
+	height: 200px;
+	width: 21px;
+	margin-top: 200px;
+	margin-left: 7px;
+	padding-top: 2px;
+	float: left;
+	background-color: #c00;
+	text-align: center;
+	color: #ccc;
+	-webkit-box-shadow: 3px 3px 5px rgba(0,0,0,0.35);
+	-moz-box-shadow: 3px 3px 5px rgba(0,0,0,0.35);
+	/*box-shadow: 3px 3px 5px rgba(0,0,0,0.35);*/ /* IE is slow... */
+}
+#optionWrapper {
+	position: absolute;
+	right: 0px;
+	background-color: rgba(125,125,125,.5);
+	padding: 5px;
+}
+.half-way {
+	position: absolute;
+	bottom: 0;
+	left: 0; /* IE6 */
+	display: block;
+	width: 100%;
+	height: 100px;
+	border-top: 1px dashed #777;
+}
+
+/* ------- demo loading spinner ------------------ */
+#loadSpinner {
+	position: relative;
+	height: 60px;
+}
+
+/* ------- demo iPhone ------------------ */
+#iPhone {
+	position: relative;
+	margin: 1em;
+	top:0;
+	left:0;
+	overflow: hidden;
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	cursor: default;
+	color: #333;
+}
+#iPhone, #leftScreen, #rightScreen, #bottomScreen {
+	width: 320px;
+	height: 480px;
+	background-color: #fff;
+}
+#leftScreen, #rightScreen, #bottomScreen {
+	position: absolute;
+}
+#leftScreen {
+	
+}
+#rightScreen {
+	left:100%;
+	background: #fff url(../demos/bg.png);
+}
+#bottomScreen {
+	top:100%;
+	background: #fff url(../demos/bg.png);
+	color: wite;
+}
+.top-line {
+	position: absolute;
+	height: 48px;
+	width: 100%;
+	background-color: #99C1E9;
+	color: #fff;
+	-webkit-box-shadow: inset 0 -24px 6px rgba(0,0,0,0.15), inset 0 8px 5px rgba(255,255,255,0.10);
+}
+.button-right, .button-left {
+	border: 1px solid gray;
+	background-color: #7897B6;
+	border-radius: 5px;
+	width: 80px;
+	text-align: center;
+	padding: 5px 0;
+	float: right;
+	margin: 12px 12px 0 0px;
+	-webkit-box-shadow: inset 0 -14px 6px rgba(0,0,0,0.15), inset 0 1px 1px rgba(255,255,255,0.4), inset 0 6px 6px rgba(255,255,255,0.25), 0 1px 0px rgba(255,255,255,0.35);
+}
+.button-left {
+	float: left;
+	margin: 12px 0 0px 12px ;
+}
+.content {
+	position: absolute;
+	top: 48px;
+	width: 100%;
+	overflow: auto;
+	left: -1px;
+}
+.pad {
+	padding: 24px;
+	text-shadow: 1px 1px 0px #fff;
+	color: #222;
+
+}
+.list {
+	overflow: hidden;
+}
+.list-row {
+	position: relative;
+	padding: 12px;
+	border-bottom: 1px solid #eee;
+}
+.list-off {
+	color: #c00;
+}
+.det {
+	position: relative;
+	float: right;
+	top:0;
+	width: 16px;
+	height: 16px;
+	font-size: 16px;
+	margin-top: -2px;
+	text-align: center;
+	border: 2px solid #fff;
+	border-radius:10px;
+	color: #eee;
+	background-color: #7897B6;
+	-webkit-box-shadow: 0px 0px 6px rgba(0,0,0,0.6), 0px 3px 2px rgba(0,0,0,0.2);
+}
+.white-box {
+	padding: 12px;
+	border: 1px solid #aaa;
+	border-radius: 12px;
+	background-color: #fff;
+	font-weight: normal;
+}
+/* ------- demo image slider ------------------ */
+#slides {
+	position: relative;
+	margin: 0;
+	padding: 0;
+	border: 6px solid #666;
+	width: 764px;
+	height: 228px;
+	overflow: hidden;
+	list-style: none;
+	color: #aaa;
+	margin-left: -3em;
+}
+#slides.front-page-slides {
+	border-width: 4px;
+	border-color: #555;
+	margin-top: 2em;
+	border-left: none;
+	border-right: none;
+	width: 776px;
+	color: #bbb;
+}
+.slide-pix  {
+	width: 390px;
+	height: 228px;
+	background: #333 url(../demos/startScreen.png) no-repeat;
+}
+#slide-pix-02 {background-position: -390px 0}
+#slide-pix-03 {background-position: -780px 0}
+#slides h2 {margin-top: .7em}
+#slides ul {padding-left:1.3em;}
+#slides li {list-style-type:disc}
+#slides .slides {
+	position: absolute;
+	width: 100%;
+	background-color: #444;
+	list-style: none;
+}
+
+.slide-text {
+	position: absolute;
+	left: 0;
+	top: 0;
+	margin-left: 420px;
+	margin-right: 12px;
+}
+
+#dots {
+	width: 776px;
+	text-align: center;
+	padding: 12px 0;
+	margin-left: -3em;
+}
+#dots.front-page-dots {
+	text-align: right;
+	width: 764px;
+	padding-bottom: 0;
+	padding-top: 8px;
+}
+#dots div {
+	display: inline-block;
+	width: 8px;
+	height: 8px;
+	border: 1px solid gray;
+	margin-left: 4px;
+	border-radius: 8px;
+	-moz-border-radius: 8px;
+	-o-border-radius: 8px;
+	-webkit-box-shadow: inset -2px -2px 4px rgba(0,0,0,.3);
+	-moz-box-shadow: inset -2px -2px 4px rgba(0,0,0,.3);
+	box-shadow: inset -2px -2px 4px rgba(0,0,0,.3);
+	cursor: pointer;
+}
+.dots-high {
+	background-color: #aaa;
+}
+
+
+/* ------- plugin page ------------------ */
+
+.plugin-list {
+	list-style: none;
+	padding-left: 1em;
+	margin-bottom: 2em;
+}
+.plugin-list li {
+	margin-bottom: 1em;
+}

@@ -1,0 +1,183 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>jsMorph - tutorial page</title>
+<link href="css/jsMorph.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<div id="header">
+  <ul id="navigation">
+    <li><a href="./">jsMorph</a></li>
+    <li><a href="download.html">Download</a></li>
+    <li><a href="documentation.html">Documentation</a></li>
+    <li><a href="demos.html">Demos</a></li>
+    <li><a href="tutorials.html" class="active">Tutorials</a></li>
+    <li><a href="plugins.html">Plugins</a></li>
+  </ul>
+	<h1><a href="./"><img src="images/logo_new_t.png" id="logoImage" alt="jsMorph" width="227" height="45" /></a><br />
+&nbsp;&nbsp;&nbsp;&nbsp;  javaScript motion framework - tutorial page</h1>
+	<p>On this page you can find tutorial-style demos that show you how to work with jsMorph step-by-step</p>
+	<ul>
+	  <li><a href="#simple1">Simple horizontal slide demo</a></li>
+    <li><a href="#simple2">Simple horizontal slide demo with some more parameters</a></li>
+	  <li><a href="#complex">More complex slide demo &amp; backwards</a></li>
+	  <li><a href="#cue">Queueing demo &amp; unit change</a></li>
+	  <li><a href="#multy">Multy element queueing demo with unique triggers &amp; onMorph callback</a></li>
+	  <li><a href="#recycling">Recycling, resetting &amp; speed reducing jsMorph ('green' mode)</a></li>
+	  <li><a href="#convert">Converting units...</a></li>
+	</ul>
+</div>
+<a name="simple1"></a><h2>Simple horizontal slide demo</h2>
+<p>In this demo we'll let the &lt;div&gt; simply slide from its initial position 200px to the right.<br />
+It started already right away...(click for restart):</p>
+<div class="demo-wrapper"><div class="demo" id="demo_1"></div></div>
+<pre>new <strong>jsMorph</strong>('demo', {left:'200px'}).<strong>start</strong>();</pre>
+<p>The elements can be delivered as string (id of element), Array of elements (or strings), or as an elementCollection</p>
+
+<a name="simple2"></a><h2>Simple horizontal slide demo with some more parameters</h2>
+<p>The same as above in a smoother way and a trigger (click the &lt;div&gt; to start motion):</p>
+<div class="demo-wrapper"><div class="demo" id="demo_2"></div></div>
+<pre>
+var demo = document.getElementById('demo'),
+    myMorph = new <strong>jsMorph</strong>(demo,
+      {left:'200px'},
+      {<strong>duration</strong>:650},
+      function(n) {return --n*n*n+1}
+    );
+demo.onclick = myMorph.<strong>start</strong>;
+</pre>
+<p>Here we increased the duration from the default value 500 to 650, added a nicer easing function (cubicEaseOut, default is linear) and triggert the motion with the onclick event. You'll find transition functions within the package... another resource saving point: you probably never use more than 2 different ones, so, why including more?</p>
+
+<a name="complex"></a><h2>More complex slide demo &amp; backwards</h2>
+<p>The same as above but more parameters that change the &lt;div&gt;:</p>
+<div class="demo-wrapper"><div class="demo" id="demo_3"></div></div>
+<pre>
+var demo = document.getElementById('demo'),
+    myMorph = new <strong>jsMorph</strong>(demo,
+      {left:'350px', height:'40px', width:'80px', 'border-width':'6px'},
+      {<strong>duration</strong>:600},
+      function(n) {return --n*n*((2.7)*n+1.7)+1},
+      null,
+      null,
+      function(obj){obj.<strong>backwards</strong> = obj.<strong>backwards</strong> ? false : true}
+    );
+demo.onclick = myMorph.<strong>start</strong>;
+</pre>
+<p>Here we changed  more styles at the same time and used another easing equation (backEaseOut).<br />
+Additionaly we added a onMorphEnd callback function to the sequence that sets the attribute 'backwards' to the element. This way it goes back the next time the sequence gets started.</p>
+
+<a name="cue"></a><h2>Queueing demo &amp; unit change</h2>
+<p>In this demo we'll let the &lt;div&gt; go in two different directions in one sequence:</p>
+<div class="demo-wrapper"><div class="demo" id="demo_4"></div></div>
+<pre>
+var demo = document.getElementById('demo'),
+    myMorph = new <strong>jsMorph</strong>(demo,
+      {left:'50%', height:'7em', width:'280px', 'border-width':'6px', 'margin-left':'-140px'},
+      {<strong>duration</strong>:600},
+      <strong>cubicEaseOut</strong>
+    ).<strong>concat</strong>(demo,
+      {top:'95px'},
+      {<strong>delay</strong>:220},
+      <strong>bounceEaseOut</strong>,
+      null,
+      null,
+      function(obj) {obj.<strong>backwards</strong> = obj.<strong>backwards</strong> ? false : true}
+    );
+demo.onclick = myMorph.<strong>start</strong>;
+window.onresize = myMorph.<strong>init</strong>;
+</pre>
+<p>Here we put the same element 'demo' twice in the cue of myMorph with a delay of 220ms and a different ease equation. Additionaly we defined the onMorphEnd callback function for the last sequence to set the attribute 'backwards' to the element that gets rendered last.<br />
+You might find it strange that the element goes back an other way, but it's just logical that the second element still has its delay. You can avoid that by setting the reverseDelays attribute like you'll see in a firther demo, or by defining a new jsMorph with a backwards sequence.</p>
+<p>You can also see that we changed the type of unit. Initial left is set in pixels but it ends up with 50%. This way and with the negative margin it always ends up in the middle of the sceen, even if you resize the window (you have to set the window.onResize event to reinitialize the elements in jsMorph) but goes back to a fixed starting point. The same unit change happened with height: from pixels to em.</p>
+
+<a name="multy"></a><h2>Multy element queueing demo with unique triggers &amp; onMorph callback</h2>
+<p>In this demo we'll let many &lt;div&gt;s move the same way but being triggered uniquely:</p>
+<div class="demo-wrapper" id="demoWrap">
+	<div class="demo" id="demo_5">&nbsp;</div>
+	<div class="demo" id="demo_6">&nbsp;</div>
+	<div class="demo" id="demo_7">&nbsp;</div>
+	<div class="demo" id="demo_8">&nbsp;</div>
+</div>
+<pre>
+var demo = document.getElementById('demoWrap').getElementsByTagName('div');
+    myMorph = new <strong>jsMorph</strong>(demo,
+      {height:'100px', 'border-top-width':'8px', bottom:'-44px'},
+      {<strong>duration</strong>:150},
+      <strong>cubicEaseOut</strong>,
+      function(obj, objStyle, time) {obj.firstChild.data = time},
+      null,
+      function(obj) {obj.<strong>backwards</strong> = obj.<strong>backwards</strong> ? false : true}
+    ).<strong>concat</strong>(demo[demo.length-1],
+      {left:'100px'},
+      {<strong>duration</strong>:150},
+      <strong>cubicEaseOut</strong>
+    );
+for (var n=demo.length; n--;) demo[n].onclick = function() {myMorph.<strong>start</strong>(this)}
+</pre>
+<p>Here we put an elementCollection 'demo' in the cue of myMorph (could also be an Array of elements) because all elements have to do the same thing. Additionaly we add the last element with a different attribute change to it and an onMorph callback function to all elements that shows the elapsed time.</p>
+<p>You'll probably recognice that shorter durations for short distance motions look better.<br />
+</p>
+<p>All elements are triggered individually by adding the single elements as arguments to the methode start() inside the onclick event. See the 'menu demo' for a better event assignement (event delegation).</p>
+
+<a name="recycling"></a><h2>Recycling, resetting &amp; speed reducing jsMorph ('green' mode)</h2>
+<p>In this demo we'll feed jaMorph with the same object with new initial states and different end positions:</p>
+<div class="demo-wrapper">
+	<div class="demo" id="fps" style="position: relative; float: right; width: 70px; text-align: right; padding-right: .5em">0 fps</div>
+	<div class="demo" id="demo_9"></div>
+</div>
+<pre>
+var demo = document.getElementById('demo'),
+    myMorph = new <strong>jsMorph</strong>(),
+    recycle = function (myMorph, demo, width) {
+      myMorph.<strong>reset</strong>(demo,
+        {width: width+'px'},
+        {<strong>duration</strong>:450, <strong>speed</strong>:3},
+        <strong>cubicEaseOut</strong>
+      ).<strong>start</strong>();
+    };
+window.setInterval(function(){recycle(myMorph, demo, Math.random()*600)}, 1000);
+</pre>
+<p>Here we reset all data in the same object. You can see how convenient it is to not having to put the initial values to the morphing object. With this option you can save a lot of memory.<br />
+See the 'charts demo' for a more practical demo for useing jsMorph.</p>
+<p> The optimized rendering speed is also recalculated each time you feed it with new data (see fps). This way you'll use only resources that you need, to show a smooth motion. In this demo you got 'speed' set to 3 which reduces the framerate to an amount that is still (kind of ;o) fast enough to experience a smooth rendering but saves even more resources (defaul: 1). jsMorph reduces speed by default to the max  by default, so, don't care too much ;o)</p>
+
+<a name="convert"></a><h2>Converting units...</h2>
+<p>In this demo we'll only collect some CSS values of an element and change its units to pixels:</p>
+<div id="unitDemo"></div>
+<p>The starting units declared in the style sheet are mixed:</p>
+<pre>
+#unitDemo {
+  width: 6em;
+  height: 2ex;
+  border: .4em solid #888;
+  padding: 2%;
+  margin-left: 1cm;
+}
+</pre>
+<p>Now we set up the animation with all the attributes we want to know, without starting it, and read the units with the callback function <strong><em>onMorphInit()</em></strong>:</p>
+<pre>
+var myMorph = new <strong>jsMorph</strong>('unitDemo',
+  {width:'1px', height:'1px', 'border-width':'1px', padding:'1px', 'margin-left':'1px'},
+  null,
+  null,
+  <strong>function(initProp, dims)</strong>{
+    var cons = document.getElementById('demo-console');
+    for (n in <strong>initProp</strong>) if (n != 'speed') cons.innerHTML += n+': '+<strong>initProp[n].full</strong>+'px&lt;br /&gt;';
+  }
+);
+</pre>
+<div id="demo-console" style="padding: 1em; border: 1px solid #444"><em>I'm the 'demo-console' DIV displaying the results from <strong>onMorphInit()</strong>:</em><br />
+</div>
+<p>The object 'dims' used in the callback function holds all the units with its pixels per 1 unit. This can be used for more calculations even with other elements or simply to convert one unit to an other (% -&gt; em)...<br>
+See more details in the <a href="documentation.html">Documentation section</a>.</p>
+
+<a name="conclusion"></a><h2>Conclusion</h2>
+<p>You probably noticed that even if situations get more complex, the code doesn't get very much longer or complex.<br />
+You mostly use only one object 'jsMorph' and can do a lot of variations, sequences, queueing, etc. So it's very 'green' for its recycleability, big variety and the fact that it's adjusting rendering speed depending on duration and motion distance.</p>
+<p>It's also very straight forward because you don't have to know where to move from, just where you want to go,... so less calculations and trying to find out what you need to do.</p>
+<div id="footer"><em>powered by: </em> <strong>weekendProductions</strong> - Peter Dematté</div>
+<script src="js/jsMorph_min.js" type="text/javascript"></script>
+</body>
+</html>

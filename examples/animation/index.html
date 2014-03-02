@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CSS3 Transformation tool</title>
+
+    <link href="style.css" rel="stylesheet" type="text/css" />
+
+    <script src="../../bower_components/sylvester/sylvester.js"></script>
+
+    <script src="../../src/free-transform.js"></script>
+    <script src="jsMorph-0.4.0.js"></script>
+    <script src="easings-1.0.js"></script>
+
+    <style type="text/css">
+        .ft-html {
+            text-align: center;
+            box-shadow: -10px -10px 20px rgba(0,0,0,.5);
+        }
+
+        .ft-css-transition{
+            margin-left: 80px;
+            -webkit-transform-origin: 0px 0px;
+            -webkit-perspective: 0;
+            -moz-transform-origin: 0px 0px;
+            -moz-perspective: 0;
+            -transform-origin: 0px 0px;
+            -perspective: 0;
+
+            -webkit-transition: all 500ms cubic-bezier(0.175, 0.885, 0.320, 1.275);
+               -moz-transition: all 500ms cubic-bezier(0.175, 0.885, 0.320, 1.275);
+                 -o-transition: all 500ms cubic-bezier(0.175, 0.885, 0.320, 1.275);
+                    transition: all 500ms cubic-bezier(0.175, 0.885, 0.320, 1.275); /* easeOutBack */
+
+            -webkit-transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1.275);
+               -moz-transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1.275);
+                 -o-transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1.275);
+                    transition-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1.275); /* easeOutBack */
+
+        }
+        .ft-css-transition:hover{
+            -webkit-transform: matrix3d(1, 0.5, 0, 0.001667, 0, 0.5, 0, -0.001667, 0, 0, 1, 0, 0, 0, 0, 1);
+               -moz-transform: matrix3d(1, 0.5, 0, 0.001667, 0, 0.5, 0, -0.001667, 0, 0, 1, 0, 0, 0, 0, 1);
+                    transform: matrix3d(1, 0.5, 0, 0.001667, 0, 0.5, 0, -0.001667, 0, 0, 1, 0, 0, 0, 0, 1);
+        }
+    </style>
+
+<head>
+
+<body>
+
+    <h1>CSS Free Transform Distort tool (beta)</h1>
+
+
+    <div style="padding: 200px 0 0 200px;">
+        <div style="top:0" class="ft-html ft-js-morph">JS Morph</div>
+        <div style="top:0" class="ft-html ft-css-transition">CSS transition</div>
+    </div>
+
+    <div id="cssVal">Start dragging dots to see transformation matrix3d value</div>
+
+
+<script>
+(function(){
+    'use strict';
+
+    var cssVal = document.getElementById('cssVal'),
+        el = document.getElementsByClassName('ft-js-morph')[0],
+        ft = new FreeTransform(el),
+        onMorphInit = function(){
+
+        },
+        onMorph = function(obj, objStyle, time, frames, objSpeed, jsMorphSspeed, easeingFunction, objCssText){
+            var tl = [parseInt(objStyle.top, 10),
+                      parseInt(objStyle.left, 10)];
+            // console.log(tl);
+            ft.to([[0,0], [0,0], [0, 0], tl]);
+
+        },
+        onMorphEnd = function(){
+
+        };
+
+
+    // ft.to([[0,0], [100, -100], [40, 0], [0, 0]]);
+
+
+    var myMorph = new jsMorph(el,
+      {'top': '-100px', 'left': '100px'},
+      {duration : 600},
+      elasticEaseOut,
+      onMorphInit,
+      onMorph,
+      onMorphEnd
+    );
+
+    el.onmouseout = el.onmouseover = function(e){
+        el.backwards = (e.type == 'mouseout') ? true : false;
+        myMorph.start(el);
+    }
+
+    console.log(myMorph);
+
+
+
+
+
+    //ft.reset();
+
+})();
+
+
+</script>
+
+
+<script type="text/javascript">
+// var _gaq = _gaq || [];
+// _gaq.push(['_setAccount', 'UA-6873905-7']);
+// _gaq.push(['_trackPageview']);
+// (function() {
+//  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+//  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+//  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ga);
+// })();
+
+
+// (function(w, c) {
+//     (w[c] = w[c] || []).push(function() {
+//         try {
+//             w.yaCounter5036203 = new Ya.Metrika(5036203);
+//             yaCounter5036203.trackLinks(true);
+//         } catch(e) { }
+//     });
+// })(window, 'yandex_metrika_callbacks');
+
+
+</script>
+
+<!--
+<script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
+<noscript><div><img src="//mc.yandex.ru/watch/5036203" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+ -->
+</body>
+</html>

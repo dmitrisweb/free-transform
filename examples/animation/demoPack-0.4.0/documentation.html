@@ -1,0 +1,139 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>jsMorph - documentation page</title>
+<link href="css/jsMorph.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<div id="header">
+  <ul id="navigation">
+    <li><a href="./">jsMorph</a></li>
+    <li><a href="download.html">Download</a></li>
+    <li><a href="documentation.html" class="active">Documentation</a></li>
+    <li><a href="demos.html">Demos</a></li>
+    <li><a href="tutorials.html">Tutorials</a></li>
+    <li><a href="plugins.html">Plugins</a></li>
+  </ul>
+	<h1><a href="./"><img src="images/logo_new_t.png" id="logoImage" alt="jsMorph" width="227" height="45" /></a><br />
+&nbsp;&nbsp;&nbsp;&nbsp;  javaScript motion framework - documentation page</h1>
+	<p><strong>jsMorph</strong> is a pure javaScript animation framework that can manipulate almost any and multiple stylings of multiple HTML elements. It auto detects start positions, auto converts units, automatically adjusts rendering speed and corrects time leaks for smoother rendering experience. Even if used for queued multiple elemets, jsMorph can do single or grouped triggering as well as handling plenty of unique or overall callback functions. All methods within jsMorph are chainable.    <strong>jsMorph</strong> can also be used for converting units to pixels or any other unit.</p>
+	<p>	  This page shows you all the 'methods' and 'attributes' available in jsMorph.</p>
+</div>
+<h2>Usage of jsMorph()</h2>
+<pre>
+var myMorph = jsMorph(
+  Object obj, <em>// HTML element, Array of elements or elementCollection that are rendered</em>
+  Object prop, <em>// css properties of end position</em>
+  [Object params], <em>// parameters that influence the motion (duration, speed, ...)</em>
+  [Function ease], <em>// easing function (included in easing package)</em>
+  [Function onMorphInit], <em>// callback function after initializing the morphing sequence</em>
+  [Function onMorph], <em>// callback function with every step during rendering</em>
+  [Function onMorphEnd] <em>// callback function at the end of the obj's morphing phase</em>
+).start();
+<br /><em>or</em><br />
+var myMorph = new jsMorph();
+myMorph.concat(obj, prop, [params], [ease], [onMorphInit], [onMorph], [onMorphEnd]);
+myMorph.start();
+</pre>
+<p>There are three methods of filling jsMorph with information. Eather right away while creating the 'new' object or you first create a new instance of jsMorph and fill it later with information by using '.concat()'. It's alsmost the same as '.reset()' besides that this method first empties jsMorph from all previous queued elements.</p>
+<h2>Methods</h2>
+<h3>.concat( obj, prop, [params], [ease], [onMorphInit], [onMorph], [onMorphEnd] )</h3>
+<p><strong>Description</strong>: Adds element(s) and it's morphing information to morphing sequence (queue)</p>
+<p><strong>Parameters</strong>: the same as with <em>jsMorph( parameters )</em><br />
+  <span class="fat">obj</span> <em>Object</em>, HTML element, Array of elements or elementCollection that are rendered <br />
+  <span class="fat">prop</span> <em>Object</em>, css properties that schould show at the end of morphing sequence eg. {width: '120px', ...}<br />
+  [<span class="fat">params</span> <em>Object</em>], parameters that influence the motion (duration, speed, ...)<br />
+  [<span class="fat">ease</span> <em>Function</em>], easing function (included in easing package).<br />
+  [<span class="fat">onMorphInit</span> <em>Function</em>], callback function after initializing the morph sequence<br />
+  [<span class="fat">onMorph</span> <em>Function</em>], callback function with every step<br />
+[<span class="fat">onMorphEnd</span> <em>Function</em>], callback function at the end of the obj's morphing phase</p>
+<div class="padding-left">
+  <p><strong>params</strong>: <em>{duration, delay, speed, doEnd}</em></p>
+  <p>
+    <span class="fat">duratio</span> <em>Integer</em>, duration of the element's motion sequence in milliseconds (default: 500)<br />
+    <span class="fat">delay</span> <em>Integer</em>, delay of the element's motion sequence in milliseconds (default: 0)<br />
+    <span class="fat">speed</span> <em>Float</em>, speed coeficient of the element's motion sequence (default: 1)<br />
+    <span class="fat">doEnd</span> <em>Boolean</em>, Determine whether the end-style should change to its destination unit or stays in px mode<br>
+  &nbsp;</p>
+  
+  <p><strong>onMorphInit</strong>: <em>function (initProp, dims) {...}</em></p>
+  <p>
+    <span class="fat">initProp</span> <em>Object</em>, holds all the endposition values in pixels. For example:<br>
+    If you set prop to {width: '120px', ...} <strong>initProp</strong> will have an object <strong>'width'</strong> so <strong>initProp</strong>.<strong>width</strong> or <strong>initProp</strong>[<strong>'width'</strong>].<br>
+    The value can be read within <strong>.full</strong>, so <strong>initProp.width.full</strong> == 120.<br>
+    There is also <strong>initProp.speed</strong> that lets you calculate the frames/sec: fps = 1000/<strong>initProp.speed</strong><br>
+    <span class="fat">dims</span> <em>Object</em>, an object delivering pixels per units calculated for this element<br>
+    (em, pt, pc, in, cm, mm, ex, exn, %font, %line, %outX, %outY)
+  where exn is unit 'ex' in end position in case of fontSize change to the end of the sequence.<br>
+  &nbsp;</p>
+  
+  <p><strong>onMorph</strong>: <em>function (obj, objStyle, time, frames, objSpeed, jsMorphSspeed, easeingFunction, objCssText) {...}</em></p>
+  <p>
+    <span class="fat">obj</span> <em>Object</em>, reference to the element that gets rendered<br />
+    <span class="fat">objStyle</span> <em>String</em>, cssText of element being rendered<br />
+    <span class="fat">time</span> <em>Float</em>, elapsed rendering time in milliseconds<br />
+    <span class="fat">frames</span> <em>Float</em>, Frames rendered so far<br />
+    <span class="fat">objSpeed</span> <em>Float</em>, Calculated speed of current element<br />
+    <span class="fat">jsMorphSspeed</span> <em>Float</em>, Globaly calculated rendering speed if more than one element<br />
+    <span class="fat">easeingFunction</span> <em>Function</em>, returns the used easing function for this element<br />
+    <span class="fat">objCssText</span> <em>String</em>, end position cssText of element<br>
+  &nbsp;</p>
+  
+  <p><strong>onMorphEnd</strong>: <em>function (obj, time, frames, objSpeed, jsMorphSpeed, objCssText) {...}</em></p>
+  <p>
+    <span class="fat">obj</span> <em>Object</em>, reference to the element that gets rendered<br />
+    <span class="fat">time</span> <em>Float</em>, elapsed rendering time in milliseconds<br />
+    <span class="fat">frames</span> <em>Float</em>, Frames rendered<br />
+    <span class="fat">objSpeed</span> <em>Float</em>, Calculated speed of current element<br />
+    <span class="fat">jsMorphSpeed</span> <em>Float</em>, Globaly calculated rendering speed if more than one element<br />
+    <span class="fat">objCssText</span> <em>String</em>, end position cssText of element  </p>
+</div>
+
+<h3>.reset( obj, prop, [params], [ease], [onMorphInit], [onMorph], [onMorphEnd] )</h3>
+<p><strong>Description</strong>: Clears queue of sequence by emptying the jsMorph object,<br />
+adds element(s) and it's morphing information to morphing sequence (queue) if parameters are set just like with .concat()</p>
+<p><strong>Parameters</strong>:
+no parameters just clears the object.<br />
+Same parameters as for .concat( ) above.</p>
+
+<h3>.start( obj, [obj], ... )</h3>
+<p><strong>Description</strong>: Starts the morphing sequence.</p>
+<p><strong>Parameters</strong>: (none just triggers all elements in the queue)<br />
+  [<span class="fat">Object obj</span>], <em>HTML element, Array of elements or elementCollection that gets triggered for rendering (optional)</em> <br />
+</p>
+
+<h3>.stop( )</h3>
+<p><strong>Description</strong>: Stops the morphing sequence.</p>
+<!--h3>.onMorphEnd( obj, time, frames, objSpeed, jsMorphSpeed, objCssText ) <em>single element</em></h3>
+<p><strong>Description</strong>: Callback function after HTML element reaches the end of its sequence.</p>
+<p><strong>Parameters</strong>:<br />
+  <span class="fat">obj</span> <em>Object</em>, HTML element that is rendered <br />
+  <span class="fat">time</span> <em>Number</em>, time elapsed so far<br />
+  <span class="fat">frames</span> <em>Number</em>, amount of frames rendered<br />
+  <span class="fat">objSpeed</span> <em>Number</em>, calculated speed for this HTML element (<strong>obj</strong>).<br />
+  <span class="fat">jsMorphSpeed</span> <em>Number</em>, calculated overall speed.<br />
+  <span class="fat">objCssText</span> <em>String</em>, the cssText of this HTML element at the end position (<strong>obj</strong>).</p-->
+<h3>.onMorphEnd( objs, time, frames, jsMorphSpeed )</h3>
+<p><strong>Description</strong>: Callback function after jsMorph stops rendering timer.</p>
+<p><strong>Parameters</strong>:<br />
+  <span class="fat">objs</span> <em>Object, Array or ElementCollection</em>, HTML elements that were rendered <br />
+  <span class="fat">time</span> <em>Number</em>, time elapsed for the whole sequence<br />
+  <span class="fat">frames</span> <em>Number</em>, amount of frames rendered<br />
+<span class="fat">jsMorphSpeed</span> <em>Number</em>, calculated overall speed.</p>
+<h2>Attributes</h2>
+<p>Not only jsMorph but also all used elements can have attributes.</p>
+<h3><em>jsMorph.</em>speed</h3>
+<p><strong>Description</strong>: <em>Number</em> (readonly) that stores the calculated overall speed of the sequence.</p>
+<h3><em>obj.</em>backwards</h3>
+<p><strong>Description</strong>: <em>Boolean</em> (read/write) that makes the element be rendered forward (false) or backwards (true).</p>
+<h3><em>obj.</em>initStyle</h3>
+<p><strong>Description</strong>: <em>String</em> (readonly) that holds the initial inline style of the element.</p>
+<p>&nbsp;</p>
+<p>For now (alpha release) you can use 'opacity' but only with none IE browsers. Full opacity and color support will be available in one of the next releases, when jsMorph leaves the alpha state.</p>
+<p>Some methods might change then due to a massive change of the core... maybe not though. It will probably only effect the <strong>initProp</strong> of <strong>onMorphInit()</strong>, but we'll definitely document this in our next releases if it ever changes.</p>
+<div id="footer"><em>powered by: </em> <strong>weekendProductions</strong> - Peter Dematté</div>
+<script src="js/jsMorph_min.js" type="text/javascript"></script>
+</body>
+</html>

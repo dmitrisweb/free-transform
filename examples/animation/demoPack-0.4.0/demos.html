@@ -1,0 +1,99 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>jsMorph - demo page</title>
+<link href="css/jsMorph.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<div id="header">
+  <ul id="navigation">
+    <li><a href="./">jsMorph</a></li>
+    <li><a href="download.html">Download</a></li>
+    <li><a href="documentation.html">Documentation</a></li>
+    <li><a href="demos.html" class="active">Demos</a></li>
+    <li><a href="tutorials.html">Tutorials</a></li>
+    <li><a href="plugins.html">Plugins</a></li>
+  </ul>
+	<h1><a href="./"><img src="images/logo_new_t.png" id="logoImage" alt="jsMorph" width="227" height="45" /></a><br />
+&nbsp;&nbsp;&nbsp;&nbsp;  javaScript motion framework - demo pages</h1>
+	<ul>
+  	<li><a href="demos.html" class="active">Transition demo</a></li>
+  	<li><a href="demos_bounce.html">Bouncing ball demo</a></li>
+  	<li><a href="demos_menu.html">Menu demo</a></li>
+  	<li><a href="demos_accordeon.html">Accordeon demo</a></li>
+  	<li><a href="demos_charts.html">Chart bars demo</a></li>
+  	<li><a href="demos_loadspin.html">Loading spinner demo</a></li>
+  	<li><a href="demos_iPhone.html">iPhone UI demo</a></li>
+  	<li><a href="demos_imageslide.html">Image / content slider</a></li>
+  	<li><a href="tutorials.html">Tutorial demos</a></li>
+  </ul>
+  <p>  The following demos are not best practice examples, they should just show what you can do with <strong>jsMorph</strong>.<br>
+  Most of the demos can be found in the <a href="plugins.html">Plugins section</a> as real usable plugins.</p>
+</div>
+<h2>Transition Demo</h2>
+<p>This simple demo shows how easy it is to set up some very effective morphing.<br>
+  The transition function is a little over 20 lines long and has a lot of parameters to modify transition modes.<br>
+I'm showing here only a few randomly chosen kinds.<br />
+This continuous sequence skews 25 elements around and affects my (lousy) 3 year old computer only by 7 to 10 % CPU usage doing ~80-90 fps ;o). 
+With jQuery this demo maxes the CPU-fan speed, starts stucking and ...<br />
+with jsMorph it works even fine and smooth in IE5.5</p>
+<p>Click somewhere on the screen to toggle  sequence play. </p>
+<div id="slide"><img src="demos/Frangipani.jpg" border="0" alt="flower" /></div>
+<p>The following code is just a wild grown, quick and dirty demo for what's possible... (sorry if it's not understandable ;o)<br />
+	You can make different transition effects by putting a layer with the new image (src) above the existing image (img), splitting it into slizes (peaces) and letting them move around defined by the ease function (ease), the spzified time (duration) and some more 'switches':</p>
+<ul>
+  <li>delayExtension: how much longer the morphing sequence of a single slize lasts to the previous one</li>
+  <li>mode: movement of slizes depending on horiz: 0 = right or down, 1 = left or up</li>
+  <li>mSplit: splits delay effect in the middle (descending to the end like first one... arrow head effect)</li>
+  <li>sSplit: splits mode for every slice (zig-zag effect)</li>
+  <li>horiz: 1 = vertical slizes moving horizontal, 2= horizontal slizes moving horizontal, 3 = v - v, 4 = h - v</li>
+</ul>
+<pre>
+var scewSlide = function(myMorph, img, src, ease, peaces, duration,
+                         delayExtension, mode, mSplit, sSplit, horiz) {
+      var imgLayer = [], params, pos, delay, m = mode%2, delta, gapper, wrapper = img.parentNode;
+      peaces = peaces || 10;
+      delayExtension = typeof delayExtension != undefined ? delayExtension : 40;
+      duration = (duration || 800) - ((peaces-1)*delayExtension);
+      delta = (horiz ? img.offsetWidth : img.offsetHeight) / peaces;
+      gapper = delta*peaces % peaces ? 1 : 0;
+      
+      myMorph.<strong>reset</strong>();
+    
+      for (var n=0; n &lt; peaces; n++) {
+        if (!scewSlide.slizes || scewSlide.slizes &lt; n) { <em>// make shure you recycle ;o)</em>
+          scewSlide.slizes = n;
+          wrapper.appendChild(imgLayer[n] = document.createElement('div'));
+        } else imgLayer[n] = wrapper.children[n+1];
+        delay = (m ? peaces-n : n);
+        if (mSplit) delay = (n&lt;= peaces/2) ? 
+          Math.round(peaces-delay-(!m ? peaces/2 : 0))-1 :
+          Math.round(delay-(!m ? peaces/2 : 0));
+        imgLayer[n].style.cssText = !(horiz%2) ?
+          'position:absolute;left:0px;top:'+(delta*n)+'px;height:'+(delta+gapper)+
+          'px;width:100%;background: url('+img.src+') no-repeat 0 -'+(delta*n)+'px;' :
+          'position:absolute;top:0px;left:'+(delta*n)+'px;width:'+(delta+gapper)+
+          'px;height:100%;background: url('+img.src+') no-repeat -'+(delta*n)+'px 0;';
+        params = {<strong>duration</strong> :duration, <strong>delay</strong> : delay*delayExtension};
+        pos = horiz &amp;&amp; !(horiz&lt;2) ?
+          {top: mode%4 &lt; 2 ? '100%' : '-100%'} : {left: mode%4 &lt; 2 ? '100%' : '-100%'};
+        if (sSplit) pos = horiz &amp;&amp; !(horiz&lt;2) ?
+          {top: n%2 ? '100%' : '-100%'} : {left: n%2 ? '100%' : '-100%'};
+        myMorph.<strong>concat</strong>(imgLayer[n], pos, params, ease);
+      }
+      img.src = null; img.src = src;
+    },
+    myMorhp = new <strong>jsMorph</strong>(),
+    img = document.getElementById('slide').children[0],
+    images = ['img_01.jpg', 'img_02.jpg', 'img_03.jpg', 'img_04.jpg'],
+    cubicEaseIn = function(n) {return n*n*n};
+
+scewSlide(myMorph, img, images[0], cubicEaseIn, 25, 600, 35, 0, 1, 1, 4);
+</pre>
+
+<div id="footer"><em>powered by: </em> <strong>weekendProductions</strong> - Peter Dematté</div>
+<script src="js/jsMorph_min.js" type="text/javascript"></script>
+</body>
+</html>

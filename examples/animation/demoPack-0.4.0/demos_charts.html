@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>jsMorph - demo page</title>
+<link href="css/jsMorph.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<div id="header">
+  <ul id="navigation">
+    <li><a href="./">jsMorph</a></li>
+    <li><a href="download.html">Download</a></li>
+    <li><a href="documentation.html">Documentation</a></li>
+    <li><a href="demos.html" class="active">Demos</a></li>
+    <li><a href="tutorials.html">Tutorials</a></li>
+    <li><a href="plugins.html">Plugins</a></li>
+  </ul>
+	<h1><a href="./"><img src="images/logo_new_t.png" id="logoImage" alt="jsMorph" width="227" height="45" /></a><br />
+&nbsp;&nbsp;&nbsp;&nbsp;  javaScript motion framework - demo pages</h1>
+	<ul>
+  	<li><a href="demos.html">Transition demo</a></li>
+  	<li><a href="demos_bounce.html">Bouncing ball demo</a></li>
+  	<li><a href="demos_menu.html">Menu demo</a></li>
+  	<li><a href="demos_accordeon.html">Accordeon demo</a></li>
+  	<li><a href="demos_charts.html" class="active">Chart bars demo</a></li>
+  	<li><a href="demos_loadspin.html">Loading spinner demo</a></li>
+  	<li><a href="demos_iPhone.html">iPhone UI demo</a></li>
+  	<li><a href="demos_imageslide.html">Image / content slider</a></li>
+  	<li><a href="tutorials.html">Tutorial demos</a></li>
+  </ul>
+  <p>  The following demos are not best practice examples, they should just show what you can do with <strong>jsMorph</strong>.<br>
+  Most of the demos can be found in the <a href="plugins.html">Plugins section</a> as real usable plugins.</p>
+</div>
+<h2>Chart bars demo</h2>
+<p>This simple demo shows how easy it is to set up some very effective chart animation.<br>
+It doesn't make a visible difference if there are 5 bars rendered or 25. Even 80 wouldn't slow the rendering too much.</p>
+<div id="chart">
+	<span class="half-way"></span>
+	<div>&nbsp;</div>
+	<div>&nbsp;</div>
+	<div>&nbsp;</div>
+	<div>&nbsp;</div>
+	<div>&nbsp;</div>
+	<div>&nbsp;</div>
+	<div>&nbsp;</div>
+	<div>&nbsp;</div>
+	<div>&nbsp;</div>
+  <span id="optionWrapper">
+  <label for="delay" style="color: #eee;">
+      <input name="" id="delay" type="checkbox" value="" checked="checked" /> 
+  delayd bars (0.1s)  </label>
+    <br />
+  <label for="bouncer" style="color: #eee;">
+      <input name="" id="bouncer" type="checkbox" value="" /> bounce motion  </label><br />
+  <label for="amount" style="color: #eee;"> &nbsp;show 
+      <select id="amount" name="" style="font: inherit;">
+        <option value="5">5 bars</option>
+        <option selected="selected" value="9">9 bars</option>
+        <option value="13">13 bars</option>
+        <option value="18">18 bars</option>
+        <option value="25">25 bars</option>
+      </select>
+  </label>
+  </span></div>
+<pre>
+var bars = document.getElementById('chart').getElementsByTagName('div'),
+    myMorph = new <strong>jsMorph</strong>(),
+    update = function (myMorph, bars, data, height, duration, delay) {
+      myMorph.<strong>reset</strong>();
+      for(var n = bars.length; n--;) {
+        myMorph.<strong>concat</strong>(bars[n],
+          {'margin-top': data[n]*(height || 1)},
+          {<strong>duration</strong> : (duration || 800), <strong>delay</strong> : n*(delay || 0)},
+          function(n) {return --n*n*n*n*n+1});
+      }
+      myMorph.<strong>start</strong>();
+    };
+		
+update(myMorph, bars, data, 200, 800, 100); <em>// data coming from an ajax request as Array</em>
+</pre>
+<div id="footer"><em>powered by: </em> <strong>weekendProductions</strong> - Peter Dematté</div>
+<script src="js/jsMorph_min.js" type="text/javascript"></script>
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>jsMorph - demo page</title>
+<link href="css/jsMorph.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<div id="header">
+  <ul id="navigation">
+    <li><a href="./">jsMorph</a></li>
+    <li><a href="download.html">Download</a></li>
+    <li><a href="documentation.html">Documentation</a></li>
+    <li><a href="demos.html" class="active">Demos</a></li>
+    <li><a href="tutorials.html">Tutorials</a></li>
+    <li><a href="plugins.html">Plugins</a></li>
+  </ul>
+	<h1><a href="./"><img src="images/logo_new_t.png" id="logoImage" alt="jsMorph" width="227" height="45" /></a><br />
+&nbsp;&nbsp;&nbsp;&nbsp;  javaScript motion framework - demo pages</h1>
+	<ul>
+  	<li><a href="demos.html">Transition demo</a></li>
+  	<li><a href="demos_bounce.html">Bouncing ball demo</a></li>
+  	<li><a href="demos_menu.html">Menu demo</a></li>
+  	<li><a href="demos_accordeon.html">Accordeon demo</a></li>
+  	<li><a href="demos_charts.html">Chart bars demo</a></li>
+  	<li><a href="demos_loadspin.html">Loading spinner demo</a></li>
+  	<li><a href="demos_iPhone.html">iPhone UI demo</a></li>
+  	<li><a href="demos_imageslide.html" class="active">Image / content slider</a></li>
+  	<li><a href="tutorials.html">Tutorial demos</a></li>
+  </ul>
+  <p>  The following demos are not best practice examples, they should just show what you can do with <strong>jsMorph</strong>.<br>
+  Most of the demos can be found in the <a href="plugins.html">Plugins section</a> as real usable plugins.</p>
+</div>
+<h2>Image / Content slider (incl. speed reduction)</h2>
+<p>This  demo shows how easy it is to set up an image/content sliding animation.<br>
+You see an unordered list (UL - LI) where all the LIs contain any content: images, movies, text, links, etc. followed by one empty DIV. The dots and their functionality get filled automatically.<br>
+See the flexibility made possible by the auto unit-converter: The whole setup and animation is done in %.<br>
+The speed reduction (to 6. 1 is default) makes the animation appear a little smoother on old or slow computers. This is due to less renderings of this 'heavy' chunc that would interupt the browsers rendering engine too often...</p>
+<ul id="slides">
+  <li class="slides">
+  	<img src="demos/Garten.jpg" alt="bild" />
+    <div class="slide-text">
+    	<h2>jsMorph - a javaScript motion library</h2>
+      <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy <a href="#">eirmod tempor invidunt</a> ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et <a href="#">accusam et justo</a> duo dolores et ea rebum. <a href="#">Stet clita</a> kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur <a href="#">sadipscing elitr</a>, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
+    </div>
+  </li>
+  <li class="slides">
+  	<img src="demos/Frangipani.jpg" alt="bild" />
+    <div class="slide-text">
+    	<h2>jsMorph - a javaScript motion library</h2>
+      <ul>
+      	<li>pure javaScript, so NO other framework needed</li>
+        <li>auto start-position detection</li>
+        <li>auto unit-conversion</li>
+        <li>auto time-correction for smoother viewing experience</li>
+        <li>auto fps-adjustment for best recource savings</li>
+        <li>super fast rendering due to optimized browser rendering buffer usage</li>
+        <li>multi parameter morphing</li>
+        <li>...and much more...</li>
+      </ul>
+    </div>
+  </li>
+  <li class="slides">
+  	<img src="demos/Wald.jpg" alt="bild" />
+    <div class="slide-text">
+    	<h2>jsMorph - a javaScript motion library</h2>
+      <p>Lorem ipsum dolor sit amet, <strong>consetetur</strong> sadipscing elitr, sed diam nonumy eirmod <strong>tempor</strong> invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At <a href="#">vero eos</a> et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
+    </div>
+  </li>
+  <li class="slides">
+  	<img src="demos/Wasserfall.jpg" alt="bild" />
+    <div class="slide-text">
+    	<h2>jsMorph - a javaScript motion library</h2>
+      <ul>
+      	<li>pure javaScript, so NO other framework needed</li>
+        <li>auto start-position detection</li>
+        <li>auto unit-conversion</li>
+        <li>auto time-correction for smoother viewing experience</li>
+        <li>auto fps-adjustment for best recource savings</li>
+        <li>super fast rendering due to optimized browser rendering buffer usage</li>
+        <li>multi parameter morphing</li>
+        <li>...and much more...</li>
+      </ul>
+    </div>
+  </li>
+</ul>
+<div id="dots"></div>
+<pre>
+var slides = document.getElementById('slides'),
+    dots = document.getElementById('dots'),
+    slideInit = function(frame, dotFrame) { <em>// position ILs and make dots</em>
+      var slides = frame.children,
+          divs = dotFrame.children,
+          sl = slides.length,
+          dots = '';
+      
+      for(n=sl; n--;) {
+        slides[n].style.cssText += ';left:'+(n*100)+'%;';
+        if (n) dots += '&lt;div&gt;&lt;/div&gt;';
+      }
+      frame.current = 0;
+      dotFrame.innerHTML = '&lt;div class="dots-high"&gt;&lt;/div&gt;' + dots;
+      for (n=divs.length;n--;) divs[n].current = n+1;
+    },
+    slide = function(myMorph, frame, dotFrame, duration) { <em>// set up sliding animation</em>
+      var slides = frame.children,
+          dots = dotFrame.children;
+      
+      frame.current = frame.current >= slides.length-1 ? 0 : frame.current + 1;
+      for (n=dots.length; n--;) dots[n].className = frame.current == n ? 'dots-high' : ''; 
+      myMorph.<strong>reset</strong>(slides,
+        {'margin-left': '-'+(frame.current * 100)+'%'},
+        {<strong>duration</strong>: duration, <strong>speed</strong>: 6},
+        function(n) {<em> // quinticEaseInOut</em>
+          if ((n*=2)<1) return 0.5*n*n*n*n*n; return 0.5*((n-=2)*n*n*n*n+2);
+        }
+      ).<strong>start</strong>();
+    },
+    slideTime,
+    initInterval = function() {
+      slideTime = window.setInterval(function(){slide(myMorph, slides, dots, 900)}, 6000);
+    },
+    myMorph = new <strong>jsMorph()</strong>;
+
+dots.onmouseout = dots.onclick = function(e) { <em>// event delegation</em>
+  var e = e || window.event, obj = e.target || e.srcElement;
+  
+  if (e.type == 'click') {
+    if (!obj.current) return;
+    window.clearInterval(slideTime);
+    slideTime = null;
+    slides.current = obj.current-2;
+    slide(myMorph, slides, dots, 900);
+    return false;
+  } else if (!slideTime) initInterval();
+};
+
+slideInit(slides, dots);
+initInterval();
+</pre>
+<div id="footer"><em>powered by: </em> <strong>weekendProductions</strong> - Peter Dematté</div>
+<script src="js/jsMorph_min.js" type="text/javascript"></script>
+</body>
+</html>

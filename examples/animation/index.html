@@ -5,11 +5,10 @@
 
     <link href="style.css" rel="stylesheet" type="text/css" />
 
-    <script src="../../bower_components/sylvester/sylvester.js"></script>
+    <script src="../../node_modules/sylvester/index.js"></script>
 
     <script src="../../src/free-transform.js"></script>
-    <script src="jsMorph-0.4.0.js"></script>
-    <script src="easings-1.0.js"></script>
+    <script src="./scripts/index.js"></script>
 
     <style type="text/css">
         .ft-html {
@@ -60,53 +59,6 @@
 
 
 <script>
-(function(){
-    'use strict';
-
-    var cssVal = document.getElementById('cssVal'),
-        el = document.getElementsByClassName('ft-js-morph')[0],
-        ft = new FreeTransform(el),
-        onMorphInit = function(){
-
-        },
-        onMorph = function(obj, objStyle, time, frames, objSpeed, jsMorphSspeed, easeingFunction, objCssText){
-            var tl = [parseInt(objStyle.top, 10),
-                      parseInt(objStyle.left, 10)];
-            // console.log(tl);
-            ft.to([[0,0], [0,0], [0, 0], tl]);
-
-        },
-        onMorphEnd = function(){
-
-        };
-
-
-    // ft.to([[0,0], [100, -100], [40, 0], [0, 0]]);
-
-
-    var myMorph = new jsMorph(el,
-      {'top': '-100px', 'left': '100px'},
-      {duration : 600},
-      elasticEaseOut,
-      onMorphInit,
-      onMorph,
-      onMorphEnd
-    );
-
-    el.onmouseout = el.onmouseover = function(e){
-        el.backwards = (e.type == 'mouseout') ? true : false;
-        myMorph.start(el);
-    }
-
-    console.log(myMorph);
-
-
-
-
-
-    //ft.reset();
-
-})();
 
 
 </script>

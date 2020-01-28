@@ -5,12 +5,11 @@
 
 	<link href="style.css" rel="stylesheet" type="text/css" />
 
-	<script src="../../bower_components/sylvester/sylvester.js"></script>
+	<script src="../../node_modules/sylvester/index.js"></script>
 	<script src="../../src/libs/utils.js"></script>
-
 	<script src="../../src/free-transform.js"></script>
 	<script src="../../src/plugins/controls.js"></script>
-
+	<script src="./scripts/index.js"></script>
 <head>
 
 <body>
@@ -36,57 +35,5 @@
 	<div id="cssVal">Start dragging dots to see transformation matrix3d value</div>
 
 
-<script>
-(function(){
-	'use strict';
-
-	var cssVal = document.getElementById('cssVal'),
-		bar = document.getElementById('bar'),
-		area = document.getElementById('area'),
-		test = document.getElementsByClassName('ft-test')[0],
-		el = document.getElementsByClassName('freeTransform')[0],
-		ft = new FreeTransform(el);
-
-
-	ft.enableControls({el:cssVal});
-
-	//ft.to([[0,0], [100, -100], [40, 0], [0, 0]]);
-	//ft.reset();
-
-	//console.log(ft);
-
-})();
-
-
-</script>
-
-
-<script type="text/javascript">
-// var _gaq = _gaq || [];
-// _gaq.push(['_setAccount', 'UA-6873905-7']);
-// _gaq.push(['_trackPageview']);
-// (function() {
-// 	var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-// 	ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-// 	(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ga);
-// })();
-
-
-// (function(w, c) {
-//     (w[c] = w[c] || []).push(function() {
-//         try {
-//             w.yaCounter5036203 = new Ya.Metrika(5036203);
-//             yaCounter5036203.trackLinks(true);
-//         } catch(e) { }
-//     });
-// })(window, 'yandex_metrika_callbacks');
-
-
-</script>
-
-<!--
-<script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
-<noscript><div><img src="//mc.yandex.ru/watch/5036203" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
- -->
 </body>
 </html>

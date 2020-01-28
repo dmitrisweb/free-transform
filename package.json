@@ -1,0 +1,38 @@
+{
+  "name": "free-transform",
+  "version": "1.0.0",
+  "description": "Restore tranformation matrix values from coordinate points",
+  "main": "src/free-transform.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "start": "parcel ./examples/controls/index.html",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dmitrisweb/free-transform.git"
+  },
+  "keywords": [
+    "css3",
+    "matrix3d",
+    "transformation",
+    "perspective",
+    "mapping",
+    "algorithm",
+    "math"
+  ],
+  "author": "Dmitry Smirnov <dmitri.smirnov@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dmitrisweb/free-transform/issues"
+  },
+  "homepage": "https://github.com/dmitrisweb/free-transform#readme",
+  "dependencies": {
+    "sylvester": "0.0.21"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.12.4"
+  }
+}

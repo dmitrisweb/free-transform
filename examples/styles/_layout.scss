@@ -1,0 +1,40 @@
+
+h1.top {
+  text-align: center;
+  font-weight: normal;
+  margin: 0;
+  padding: 10px;
+  background-color: #22384D;
+
+  height: 50px;
+}
+
+.row {
+  display: flex;
+  height: calc(100vh - 150px);
+  overflow: hidden;
+}
+.col {
+
+}
+
+.sidebar {
+  width: 200px;
+  background-color: #ffffffd9;
+}
+
+.footer {
+  text-align: center;
+  height: 100px;
+  font-size: 1.2em;
+  color: #333;
+  font-family: 'Armata', sans-serif;
+  background-color: rgba(0, 0, 0, .3);
+  background-color: #fff;
+
+  color: #fff;
+  background-color: #22384D;
+  padding: 10px;
+  border-top: 1px solid #999;
+  overflow: auto;
+}

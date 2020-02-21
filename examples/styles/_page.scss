@@ -1,12 +1,12 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
 html,
 body {
   margin: 0;
   padding: 0;
   border: 0;
-}
-
-html {
-  padding-bottom: 200px;
 }
 
 body {
@@ -30,41 +30,9 @@ body {
   color: #fff;
 }
 
-h1 {
-  text-align: center;
-  font-weight: normal;
-  margin: 0;
-  padding: 10px;
-  background-color: #22384D;
-
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-}
-
-#cssVal {
-  text-align: center;
-  min-height: 100px;
-  font-size: 1.2em;
-  color: #333;
-  font-family: 'Armata', sans-serif;
-  background-color: rgba(0, 0, 0, .3);
-  background-color: #fff;
-
-  color: #fff;
-  background-color: #22384D;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 10px;
-  border-top: 1px solid #999;
-  overflow: auto;
-}
 
 #bar {
-  font: normal 170px Arial, Helvetica;
+  font-size: 170px;
   color: #999;
 }
 
@@ -76,7 +44,7 @@ h1 {
   color: rgba(255, 255, 255, .2);
   line-height: 200px;
 
-  background: url(images/chess-board.png) no-repeat;
+  background: url(../images/chess-board.png) no-repeat;
   background-size: 100%, 100%;
 
   margin: 0 20px 20px 0;
@@ -85,23 +53,17 @@ h1 {
 
 .ft-html {
   float: left;
-  background: url(images/cat.jpg) no-repeat;
+  background: url(../images/cat.jpg) no-repeat;
   background-size: 100%, 100%;
   width: 300px;
   height: 300px;
   margin: 0 20px 20px 0;
 }
 
-
-
-
 .ft-controls {
-  width: 200px;
-  height: 200px;
   top: 0;
   left: 0;
   position: absolute;
-
 }
 
 .ft-controls div {
@@ -111,7 +73,6 @@ h1 {
   background-color: #fff;
   border: 1px solid #000;
   cursor: move;
-  /*margin: -6px 0 0 -6px;*/
   z-index: 1;
   border-radius: 100%;
 }

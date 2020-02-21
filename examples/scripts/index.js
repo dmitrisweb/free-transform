@@ -12,9 +12,9 @@ window.addEventListener('DOMContentLoaded', () => {
   console.log('freeTransform', el, cssVal);
 
   const ft = new FreeTransform(el);
-  ft.enableControls({el:cssVal});
+  // ft.enableControls({el:cssVal});
 
-  //ft.to([[0,0], [100, -100], [40, 0], [0, 0]]);
+  ft.to([[0,0], [100, -100], [40, 0], [0, 0]]);
   //ft.reset();
 
   //console.log(ft);

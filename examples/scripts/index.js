@@ -20,7 +20,9 @@ function setRoute() {
 
   if (panel) {
     panel.classList.add('current');
-    const element = panel.querySelector('.ft');
+    const element = panel.querySelector('.ft:not(.ft-enabled)');
+    if (!element) return;
+
     const cssVal = document.getElementById('css-val');
     const ft = new FreeTransform(element);
 

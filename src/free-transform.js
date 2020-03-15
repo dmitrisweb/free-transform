@@ -42,6 +42,7 @@ export class FreeTransform {
     this.prefix = prefix.js;
     this.el.style[this.prefix + 'TransformOrigin'] = '0 0';
     this.el.style[this.prefix + 'Perspective'] = '0';
+    this.el.classList.add('ft-enabled');
 
     return this;
   }
@@ -129,6 +130,7 @@ export class FreeTransform {
 
   reset () {
     this.el.style[this.prefix + 'Transform'] = null;
+    this.el.classList.remove('ft-enabled');
   };
 
 };

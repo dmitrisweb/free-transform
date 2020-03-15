@@ -1,3 +1,6 @@
+import { FreeTransform } from '../../src/free-transform';
+import { Controls } from '../../src/plugins/controls';
+
 
 /**
  * Returns routes array
@@ -25,8 +28,9 @@ function setRoute() {
 
     const cssVal = document.getElementById('css-val');
     const ft = new FreeTransform(element);
+    const controls = new Controls(ft);
 
-    ft.enableControls({
+    controls.init({
       el: cssVal,
       onChange: (matrix, coordinates) => {
         console.log('onChange', matrix, coordinates);

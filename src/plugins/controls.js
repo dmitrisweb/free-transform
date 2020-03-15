@@ -1,103 +1,97 @@
-(function (Utils) {
-  'use strict';
+import { dragDrop } from '../libs/utils';
 
-  if (!this || !Utils) return;
+export class Controls {
+  constructor(freeTransform) {
+    this.freeTransform = freeTransform;
+  }
 
-  /*----------------------------------------------------------------*/
-  /* Private
-  /*----------------------------------------------------------------*/
+  addControls () {
+    let i = 0;
+    let s = '';
+    let top;
+    let left;
+    const t = [0, 1, 2, 2, 2, 1, 0, 0];
+    let point;
+    const offset = 5;
 
-  var This, oParams = {};
-
-  var addControls = function () {
-    var i = 0,
-      s = '',
-      top, left,
-      t = [0, 1, 2, 2, 2, 1, 0, 0],
-      point,
-      offset = 5;
-
-    This.controls = document.createElement('div');
-    This.controls.className = 'ft-controls';
+    this.controls = document.createElement('div');
+    this.controls.className = 'ft-controls';
 
     // build html for controls
     for (; i < 8; i++) {
-      top = (t[i] * This.height) / 2 + This.top;
-      left = (t[(i + 6) % 8] * This.width) / 2 + This.left;
+      top = (t[i] * this.freeTransform.height) / 2 + this.freeTransform.top;
+      left = (t[(i + 6) % 8] * this.freeTransform.width) / 2 + this.freeTransform.left;
 
       s += '<div class="ft-' + i + '" draggable="false" style="top: ' +
         (top - offset) + 'px; left: ' +
         (left - offset) + 'px" title="' + i + '"></div>';
     }
 
-    This.controls.innerHTML = s;
-    This.el.parentNode.insertBefore(This.controls, This.el);
-    This.points = This.controls.childNodes;
+    this.controls.innerHTML = s;
+    this.freeTransform.el.parentNode.insertBefore(this.controls, this.freeTransform.el);
+    this.points = this.controls.childNodes;
 
 
     for (i = 0; i < 8; i++) {
-      point = This.points[i];
+      point = this.points[i];
 
       // Set initial offset of controls
       point.setAttributeNS(null, 'iLeft', point.offsetLeft);
       point.setAttributeNS(null, 'iTop', point.offsetTop);
 
       // Enable dnd
-      Utils.dnd.initElement(This.points[i]);
+      dragDrop.initElement(this.points[i]);
     }
   };
 
 
-  var addEvents = function () {
-    var events = {
-        dragstart2: handleDragStart,
-        drag2: handleDrag
-      },
+  addEvents () {
+    const events = {
+      dragstart2: this.handleDragStart.bind(this),
+      drag2: this.handleDrag.bind(this)
+    };
 
-      handler = function (e) {
-        var el = e.target;
-        var index = parseInt(el.className.substring(3), 10);
-        events[e.type](e, el, index);
-      };
+    const handler = (event) => {
+      const el = event.target;
+      const index = parseInt(el.className.substring(3), 10);
+      events[event.type](event, el, index);
+    };
 
-    This.controls.addEventListener('dragstart2', handler, false);
-    This.controls.addEventListener('drag2', handler, false);
-
+    this.controls.addEventListener('dragstart2', handler, false);
+    this.controls.addEventListener('drag2', handler, false);
   };
 
 
-  var handleDragStart = function (e, el, index) {
+  handleDragStart (e, el, index) {
+    const getPoint = (i) => {
+      const v = this.points[(index + i) % 8];
+      return [v, v.offsetLeft, v.offsetTop];
+    };
 
-    var points = This.points,
-      getPoint = function (i) {
-        var v = points[(index + i) % 8];
-        return [v, v.offsetLeft, v.offsetTop];
-      };
-
-    This.dragPoints = {
+    this.dragPoints = {
       oneBefore: getPoint(7),
       oneAfter: getPoint(1),
       twoBefore: getPoint(6),
       twoAfter: getPoint(2),
       threeBefore: getPoint(5),
-      threeAfter: getPoint(3)
+      threeAfter: getPoint(3),
     };
   };
 
 
-  var handleDrag = function (e, el, index) {
+  handleDrag (e, el, index) {
 
     if (e.preventDefault) e.preventDefault();
     if (e.stopPropogation) e.stopPropogation();
 
-    var point,
-      newPoints = [],
-      points = This.points,
-      i = 0,
-      len = points.length / 2,
-      s;
+    let point;
+    let newPoints = [];
+    const points = this.points;
+    let i = 0;
+    const len = points.length / 2;
+    let s;
 
-    var setVal = function (el, b, c) {
+    const setVal = (el, b, c) => {
       el.style.top = parseInt(((b.offsetTop + c.offsetTop) / 2), 10) + 'px';
       el.style.left = parseInt(((b.offsetLeft + c.offsetLeft) / 2), 10) + 'px';
     };
@@ -118,8 +112,8 @@
     } else {
       // drag side
 
-      setCornerPosition(This.dragPoints.oneBefore, e.data.dY, e.data.dX);
-      setCornerPosition(This.dragPoints.oneAfter, e.data.dY, e.data.dX);
+      this.setCornerPosition(this.dragPoints.oneBefore, e.data.dY, e.data.dX);
+      this.setCornerPosition(this.dragPoints.oneAfter, e.data.dY, e.data.dX);
 
       setVal(twoBefore, oneBefore, threeBefore);
       setVal(twoAfter, oneAfter, threeAfter);
@@ -135,43 +129,38 @@
       ]);
     }
 
-    s = This.to(newPoints);
-    if (oParams.el) oParams.el.innerHTML = s;
+    s = this.freeTransform.to(newPoints);
+    if (this.params.el) this.params.el.innerHTML = s;
     return true;
   };
 
 
-  var setCornerPosition = function (arr, t, l) {
-    var el = arr[0],
-      left = arr[1],
-      top = arr[2];
+  setCornerPosition (arr, t, l) {
+    const el = arr[0];
+    const left = arr[1];
+    const top = arr[2];
 
     el.style.top = (top + t) + 'px';
     el.style.left = (left + l) + 'px';
   };
 
 
-
-
-  /*----------------------------------------------------------------*/
-  /* Public
-  /*----------------------------------------------------------------*/
-
   // extend FreeTransform
-  this.prototype.enableControls = function (params) {
-    if (!this.el || this.el && this.el.parentNode.querySelector('.ft-controls')) return;
-    This = this;
-    oParams = params;
-    addControls();
-    addEvents();
+  init (params) {
+    if (!this.freeTransform.el || this.freeTransform.el && this.freeTransform.el.parentNode.querySelector('.ft-controls')) return;
+    this.params = params;
+
+    this.addControls();
+    this.addEvents();
 
     return this;
   };
 
   // TODO: removeControls
-  this.prototype.removeControls = function () {
+  reset () {
 
   }
+}
 
 
-}).call(window.FreeTransform, window.utils);
+

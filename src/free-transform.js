@@ -43,8 +43,6 @@ export class FreeTransform {
     this.el.style[this.prefix + 'TransformOrigin'] = '0 0';
     this.el.style[this.prefix + 'Perspective'] = '0';
     this.el.classList.add('ft-enabled');
-
-    return this;
   }
 
   getValues (points, startPoints) {

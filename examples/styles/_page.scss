@@ -51,40 +51,13 @@ body {
 }
 
 
-.ft-html {
+.ft-image {
   float: left;
   background: url(../images/cat.jpg) no-repeat;
   background-size: 100%, 100%;
   width: 300px;
   height: 300px;
-  margin: 0 20px 20px 0;
 }
 
-.ft-controls {
-  top: 0;
-  left: 0;
-  position: absolute;
-}
-
-.ft-controls div {
-  position: absolute;
-  width: 9px;
-  height: 9px;
-  background-color: #fff;
-  border: 1px solid #000;
-  cursor: move;
-  z-index: 1;
-  border-radius: 100%;
-}
-
-.ft-controls div:hover {
-  background-color: red;
-}
-
-.ft-test {
-  background-color: red;
-  width: 300px;
-  height: 300px;
-  position: absolute;
-  left: 800px;
+.ft-text {
 }

@@ -24,24 +24,36 @@
       <ul>
         <li><a href="#image" class="selected">Transform Image</a></li>
         <li><a href="#text">Transform Text</a></li>
+        <li><a href="#chess">Chess Board</a></li>
       </ul>
     </div>
 
     <div class="main" style="padding: 200px 0 0 200px;">
 
-
-        <div class="ft-html freeTransform">JS</div>
-        <!-- <img class="freeTransform" src="images/figure.png" alt="chrome" title="chrome" id="ft-image" /> -->
-
-        <!-- <div class="ft-test">JS</div> -->
-
-        <!-- <img src="images/chrome.png" alt="chrome" title="chrome" class="freeTransform" id="ft-image2" style="float: left; margin: 0 20px 20px 0;" /> -->
+      <div class="router-panel route-image">
+        <div class="ft ft-image">JS</div>
       </div>
+
+      <div class="router-panel route-text">
+        <div class="ft ft-text">
+          <h1 contenteditable="true" style="margin: 0">Hello World</h1>
+        </div>
+      </div>
+
+      <div class="router-panel route-chess">
+        <img class="ft ft-chess" src="images/chess-board.png" alt="Chess Board" title="Chess Board" />
+      </div>
+
     </div>
+  </div>
 
-    <div class="footer" id="cssVal">Start dragging dots to see transformation matrix3d value</div>
+
+  <div class="footer">
+    <p id="css-val">Start dragging dots to see transformation matrix3d value</p>
+    <p id="diff-val"></p>
+  </div>
 
 
-  </body>
+</body>
 
 </html>

@@ -38,3 +38,10 @@ h1.top {
   border-top: 1px solid #999;
   overflow: auto;
 }
+
+.router-panel {
+  display: none;
+}
+.current {
+  display: block;
+}

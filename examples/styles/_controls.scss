@@ -1,0 +1,22 @@
+
+.ft-controls {
+  top: 0;
+  left: 0;
+  position: absolute;
+
+  div {
+    position: absolute;
+    width: 9px;
+    height: 9px;
+    background-color: #fff;
+    border: 1px solid #000;
+    cursor: move;
+    z-index: 1;
+    border-radius: 100%;
+  }
+
+  div:hover {
+    background-color: red;
+  }
+}
+

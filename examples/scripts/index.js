@@ -1,23 +1,40 @@
-// import {Sylvester} from 'sylvester';
 
-window.addEventListener('DOMContentLoaded', () => {
+/**
+ * Returns routes array
+ */
+function getRoute() {
+  let hash = document.location.hash;
+  return (hash ? hash.replace('#', '') : '').split('/');
+}
 
-  const cssVal = document.getElementById('cssVal');
-  // const bar = document.getElementById('bar');
-  // const area = document.getElementById('area');
-  // const test = document.getElementsByClassName('ft-test')[0];
+function setRoute() {
+  const route = getRoute()[0];
 
-  const el = document.querySelector('.freeTransform');
+  // reset active panel
+  document.querySelectorAll('.router-panel').forEach(el =>
+    el.classList.remove('current')
+  );
 
-  console.log('freeTransform', el, cssVal);
+  const selector = '.router-panel' + (route ? '.route-' + route : '');
+  const panel = document.querySelector(selector);
 
-  const ft = new FreeTransform(el);
-  // ft.enableControls({el:cssVal});
+  if (panel) {
+    panel.classList.add('current');
+    const element = panel.querySelector('.ft');
+    const cssVal = document.getElementById('css-val');
+    const ft = new FreeTransform(element);
 
-  ft.to([[0,0], [100, -100], [40, 0], [0, 0]]);
-  //ft.reset();
+    ft.enableControls({
+      el: cssVal,
+      onChange: (matrix, coordinates) => {
+        console.log('onChange', matrix, coordinates);
+      }
+    });
+    // ft.to([[0,0], [100, -100], [40, 0], [0, 0]]);
+    // ft.reset();
+  }
+}
 
-  //console.log(ft);
-
-});
-
+/// Set events
+window.addEventListener('popstate', setRoute);
+window.addEventListener('DOMContentLoaded', setRoute);

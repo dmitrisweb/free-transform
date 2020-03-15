@@ -55,14 +55,9 @@
       },
 
       handler = function (e) {
-        //console.log(e);
-        var el = e.target,
-          index = parseInt(el.className.substring(3), 10);
-
-        //console.log(index);
-
+        var el = e.target;
+        var index = parseInt(el.className.substring(3), 10);
         events[e.type](e, el, index);
-
       };
 
     This.controls.addEventListener('dragstart2', handler, false);
@@ -164,6 +159,7 @@
 
   // extend FreeTransform
   this.prototype.enableControls = function (params) {
+    if (!this.el || this.el && this.el.parentNode.querySelector('.ft-controls')) return;
     This = this;
     oParams = params;
     addControls();
@@ -173,6 +169,9 @@
   };
 
   // TODO: removeControls
+  this.prototype.removeControls = function () {
+
+  }
 
 
 }).call(window.FreeTransform, window.utils);
